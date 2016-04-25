@@ -3,6 +3,8 @@
 
 (def games-keyword (keyword "games[]"))
 
+(def matches-endpoint "https://abiosgaming.com/ajax/matches")
+
 ;; games are integer ids
 ;; `(map (juxt :title :id) (abios-clj.core/games))`
 
@@ -19,25 +21,25 @@
    (upcoming-games {}))
   ([{:keys [take games]
      :or {take 10}}]
-   (abios-ajax-get "https://abiosgaming.com/ajax/matches"
-                   {:upcoming true
-                    :take take
-                    games-keyword games})))
+   (let [args {:upcoming true
+               :take take}
+         args (if (not-empty games) (assoc args games-keyword games) args)]
+     (abios-ajax-get matches-endpoint args))))
 
 (defn live-games
   ([]
    (live-games {}))
-  ([{:keys [games]}]
-   (abios-ajax-get "https://abiosgaming.com/ajax/matches"
-                   {:live true
-                    games-keyword games})))
+  ([{:keys [games]}] ;; "take" doesnt work
+   (let [args {:live true}
+         args (if (not-empty games) (assoc args games-keyword games) args)]
+     (abios-ajax-get matches-endpoint args))))
 
 (defn past-games
   ([]
    (past-games {}))
   ([{:keys [take games]
      :or {take 10}}]
-   (abios-ajax-get "https://abiosgaming.com/ajax/matches"
-                   {:past true
-                    :take take
-                    games-keyword games})))
+   (let [args {:past true
+               :take take}
+         args (if (not-empty games) (assoc args games-keyword games) args)]
+     (abios-ajax-get matches-endpoint args))))

@@ -1,4 +1,4 @@
-(defproject abios-clj "0.1.0-SNAPSHOT"
+(defproject acron0/abios-clj "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -7,4 +7,4 @@
                  [clj-http "2.0.0"]
                  [environ "1.0.1"]
                  [cheshire "5.5.0"]
-                 [prismatic/schema "1.0.4"]])
+                 [prismatic/schema "1.1.0"]])
